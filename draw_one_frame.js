@@ -10,10 +10,17 @@ function draw_one_frame() {
   strokeWeight(1);
 
   // Draw a purple ellipse in the background
-  noStroke();
+  noFill();
   fill("#b4c2da");
   ellipse(width / 2, height / 2, width / 2, height / 2);
-
+  noFill();
+  stroke("#e8edfa");
+  strokeWeight(10);
+  ellipse(width / 2, height / 2, width / 2, height / 2);
+  noFill();
+  stroke(0);
+  strokeWeight(1);
+  
   // Loop through each row and column in the grid
   for (let x = 0; x < width; x += gridSize) {
     for (let y = 0; y < height; y += gridSize) {
@@ -40,7 +47,7 @@ function draw_one_frame() {
   // Draw a white border around the outside of the canvas
   noFill();
   stroke("#e8edfa");
-  strokeWeight(10);
+  strokeWeight(40);
   rect(0, 0, width, height);
 }
 
