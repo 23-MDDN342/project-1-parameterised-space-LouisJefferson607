@@ -1,9 +1,19 @@
-let gridSize = 10;
+let gridSize = 20;
 let circleRadius = 20;
 let colors = ["#e8edfa", "#d6e6f8", "#b4c2da", "#6f95a6", "#70725a"];
 let angle = 0;
 
-function draw_one_frame() {
+function setup() {
+  createCanvas(600, 600);
+  frameRate(24); // double the frame rate
+}
+
+function draw() {
+  // Call the draw_one_frame function with the current frameCount
+  draw_one_frame(frameCount);
+}
+
+function draw_one_frame(cur_frac) {
   // Set the ellipse mode to RADIUS and stroke settings
   ellipseMode(RADIUS);
   stroke(0);
@@ -19,7 +29,7 @@ function draw_one_frame() {
   ellipse(width / 2, height / 2, width / 2, height / 2);
   noFill();
   stroke(0);
-  strokeWeight(1);
+  strokeWeight(5);
   
   // Loop through each row and column in the grid
   for (let x = 0; x < width; x += gridSize) {
@@ -50,3 +60,4 @@ function draw_one_frame() {
   strokeWeight(40);
   rect(0, 0, width, height);
 }
+
