@@ -1,11 +1,12 @@
 let gridSize = 20;
-let circleRadius = 20;
-let colors = ["#e8edfa", "#d6e6f8", "#b4c2da", "#6f95a6", "#70725a", "#f7a278"];
+let circleRadius = 30;
+let colors = ["#250c2f", "#2e0f3b", "#371446", "#3e154f", "#4b1a60"];
+
 let angle = 0;
 
 function setup() {
   createCanvas(600, 600);
-  frameRate(42);
+  frameRate(24);
 }
 
 function draw() {
@@ -18,7 +19,7 @@ function draw_one_frame(cur_frac) {
   strokeWeight(1);
 
   noFill();
-  fill("#b4c2da");
+  fill("#1e1e24");
   ellipse(width / 2, height / 2, width / 2, height / 2);
   noFill();
   stroke("#e8edfa");
@@ -53,4 +54,3 @@ function draw_one_frame(cur_frac) {
   strokeWeight(40);
   rect(0, 0, width, height);
 }
-
