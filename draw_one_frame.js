@@ -1,6 +1,6 @@
 let gridSize = 20;
 let circleRadius = 30;
-let colors = ["#250c2f", "#2e0f3b", "#371446", "#3e154f", "#4b1a60"];
+let colors = ["#e0fbfc", "#c2dfe3", "#9db4c0", "#5c6b73",];
 
 let angle = 0;
 
@@ -19,10 +19,10 @@ function draw_one_frame(cur_frac) {
   strokeWeight(1);
 
   noFill();
-  fill("#1e1e24");
+  fill("#253237");
   ellipse(width / 2, height / 2, width / 2, height / 2);
   noFill();
-  stroke("#e8edfa");
+  stroke("#7f5539");
   strokeWeight(10);
   ellipse(width / 2, height / 2, width / 2, height / 2);
   noFill();
@@ -49,8 +49,19 @@ function draw_one_frame(cur_frac) {
     }
   }
 
+  // Draw the lines down the sides of the center circle
   noFill();
-  stroke("#e8edfa");
+  stroke("#253237");
+  strokeWeight(10);
+  line(circleRadius, 0, circleRadius, height);
+  line(width - circleRadius, 0, width - circleRadius, height);
+  noFill();
+  stroke("#253237");
   strokeWeight(40);
   rect(0, 0, width, height);
 }
+
+noFill();
+  stroke("#253237");
+  strokeWeight(40);
+  rect(0, 0, width, height);
