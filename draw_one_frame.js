@@ -3,8 +3,7 @@ let circleRadius = 30;
 let colors = ["#e0fbfc", "#c2dfe3", "#9db4c0", "#5c6b73"];
 
 let angle = 0;
-let blueCircleY = 0;
-let blueCircleDirection = 1;
+let circleYPos = 0;
 
 function setup() {
   createCanvas(600, 600);
@@ -48,12 +47,11 @@ function draw_one_frame(cur_frac) {
       rotate(atan2(height / 2 - y, width / 2 - x));
       ellipse(0, 0, circleRadius, circleRadius);
       pop();
-
-      // Add blue circle on top of vertical lines
-      if (x == 120 || x == width - 120) {
+      
+      if (x === 120 || x === width - 120) {
         noStroke();
-        fill("#00aaff");
-        ellipse(x, blueCircleY, 10, 10);
+        fill(0, 0, 255);
+        circle(x, circleYPos, 10);
       }
     }
   }
@@ -62,12 +60,16 @@ function draw_one_frame(cur_frac) {
   strokeWeight(40);
   rect(0, 0, width, height);
 
-  // Move blue circle up and down
-  blueCircleY += blueCircleDirection * 5;
-  if (blueCircleY > height || blueCircleY < 0) {
-    blueCircleDirection *= -1;
-  }
+  noFill();
+  stroke("#253237");
+  strokeWeight(40);
+  line(120, 0, 120, height);
+  line(width - 120, 0, width - 120, height);
+
+  circleYPos = map(sin(frameCount / 24 * PI), -1, 1, 0, height);
 }
+
+
 
 
 
