@@ -1,8 +1,10 @@
 let gridSize = 20;
 let circleRadius = 30;
-let colors = ["#e0fbfc", "#c2dfe3", "#9db4c0", "#5c6b73",];
+let colors = ["#e0fbfc", "#c2dfe3", "#9db4c0", "#5c6b73"];
 
 let angle = 0;
+let blueCircleY = 0;
+let blueCircleDirection = 1;
 
 function setup() {
   createCanvas(600, 600);
@@ -28,7 +30,7 @@ function draw_one_frame(cur_frac) {
   noFill();
   stroke(0);
   strokeWeight(5);
-  
+
   for (let x = 0; x < width; x += gridSize) {
     for (let y = 0; y < height; y += gridSize) {
       if (dist(x, y, width / 2, height / 2) < width / 4) {
@@ -46,22 +48,29 @@ function draw_one_frame(cur_frac) {
       rotate(atan2(height / 2 - y, width / 2 - x));
       ellipse(0, 0, circleRadius, circleRadius);
       pop();
+
+      // Add blue circle on top of vertical lines
+      if (x == 120 || x == width - 120) {
+        noStroke();
+        fill("#00aaff");
+        ellipse(x, blueCircleY, 10, 10);
+      }
     }
   }
-
-  // Draw the lines down the sides of the center circle
-  noFill();
-  stroke("#253237");
-  strokeWeight(10);
-  line(circleRadius, 0, circleRadius, height);
-  line(width - circleRadius, 0, width - circleRadius, height);
   noFill();
   stroke("#253237");
   strokeWeight(40);
   rect(0, 0, width, height);
+
+  // Move blue circle up and down
+  blueCircleY += blueCircleDirection * 5;
+  if (blueCircleY > height || blueCircleY < 0) {
+    blueCircleDirection *= -1;
+  }
 }
 
-noFill();
-  stroke("#253237");
-  strokeWeight(40);
-  rect(0, 0, width, height);
+
+
+
+
+
