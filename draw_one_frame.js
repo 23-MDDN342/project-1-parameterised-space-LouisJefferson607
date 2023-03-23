@@ -1,50 +1,85 @@
-var x=300;
-var y=300;
-var a=100;
-var b=100;
+// Declare and initialize variables
+let gridSize = 18;
+let circleRadius = 30;
+let colors = ["#769ced", "#97b8ff", "#b4ccff", "#c4d7ff"];
 
-function draw_one_frame() {
-  //background(255);
-  x+=2;
-  y+=2;
-	a-=2;
-	b-=2;
-	strokeWeight(1);
-  translate(width/2, height/2);
-  for(var i=0;i<15;i++){
-	  for(var k=0;k<20;k++){
-		stroke(255,255,255);
-    rotate(PI / 12.0);
-	  fill(255,255-i*10,255-k*10);
-  	line(a%100,b%100,x%300,y%300);
-	  ellipse((x+i*20)%width,(y+k*20)%height,i+4,i+4);
-		drawtriangle((a-i*20)%width,(b-k*20)%height,k/8);
-		rect(x%width, y%height, k+10, k+10);
-		fill(0,i*10,255-k*10);
-		ellipse((x-i*20)%width,(y-k*20)%height,i+3,i+3);
-		rotate(PI / 24.0);
-		fill(255-(i+k)*5,(i+k)*7,i*20);
-		drawtriangle((a+i*20)%width,(b+k*20)%height,k/8);
-		rect(a%width, b%height, k+5, k+5);
-		drawflower(k,x);
-	  }
+// Declare variables for animation
+let angle = 0;
+let circleYPos = 0;
+
+function setup() {
+  const canvasWidth = windowWidth * 0.9;
+  const canvasHeight = windowHeight * 0.9;
+  createCanvas(canvasWidth, canvasHeight);
+  frameRate(24);
+}
+
+// Continuously draw frames
+function draw() {
+  // Call a function to draw a single frame
+  draw_one_frame(frameCount);
+}
+
+// Draw a single frame
+function draw_one_frame(cur_frac) {
+  // Set up ellipse properties
+  ellipseMode(RADIUS);
+  stroke(0);
+  strokeWeight(width / 80); // Set stroke weight relative to canvas width
+
+  // Draw outer and inner circles
+  noFill();
+  fill("#bfd7ea");
+  ellipse(width / 2, height / 2, width / 2, height / 2);
+  noFill();
+  stroke("#7f5539");
+  strokeWeight(width * 0.005); // Set stroke weight relative to canvas width
+  ellipse(width / 2, height / 2, width / 2, height / 2);
+
+  // Loop through grid
+  for (let x = 0; x < width; x += gridSize) {
+    for (let y = 0; y < height; y += gridSize) {
+      // Skip grid squares inside the inner circle
+      if (dist(x, y, width / 2, height / 2) < width / 4) {
+        continue;
+      }
+
+      // Choose colors for stroke
+      let colorIndex = floor(frameCount / 2) % colors.length;
+      let color1 = colors[(colorIndex + int((x + y) / 40)) % colors.length];
+      let color2 = colors[(colorIndex + int((x + y) / 40) + 1) % colors.length];
+
+      // Draw ellipse with stroke gradient
+      noFill();
+      stroke(lerpColor(color(color1), color(color2), (frameCount % 2) / 2));
+      push();
+      translate(x + gridSize / 2, y + gridSize / 2);
+      rotate(atan2(height / 2 - y, width / 2 - x));
+      ellipse(0, 0, circleRadius, circleRadius);
+      pop();
+      
+      // Draw circles on the sides
+      if (x === width * 0.2 || x === width * 0.8) {
+        noStroke();
+        fill(0, 0, 255);
+        circle(x, circleYPos, width / 100); // Set circle radius relative to canvas width
+      }
+    }
   }
 
+  // Draw a rectangle and lines
+  noFill();
+  stroke("#c4d7ff");
+  strokeWeight(width / 20); // Set stroke weight relative to canvas width
+  rect(0, 0, width, height);
+  line(width * 0.2, 0, width * 0.2, height);
+  line(width * 0.8, 0, width * 0.8, height);
+
+  // Animate circle Y position
+  circleYPos = map(sin(frameCount / 24 * PI), -1, 1, 0, height);
 }
 
-function drawtriangle(x,y,r){
-	triangle(x, y, x+7*r, y-13.75*r, x+14*r, y);
-}
 
-function drawflower(i,k){
-		if(i%2==1){
-			fill(255,(k*0.4)%255,30);
-			stroke(k%255,255,0);
-			arc(0,0,150+i+150*sin(k*PI/24),150,0,PI / 40);
-		}
-		else{
-			fill(k%255,0,255);
-			stroke(0,(k*0.4)%255,255);
-			arc(0,0,(100+100*cos(k*PI/24))%255,50,0,PI / 20);
-		}
-}
+
+
+
