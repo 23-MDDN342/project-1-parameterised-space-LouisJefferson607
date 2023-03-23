@@ -32,7 +32,7 @@ function draw_one_frame(cur_frac) {
   ellipse(width / 2, height / 2, width / 2, height / 2);
   noFill();
   stroke("#7f5539");
-  strokeWeight(10);
+  strokeWeight(3);
   ellipse(width / 2, height / 2, width / 2, height / 2);
 
   // Loop through grid
