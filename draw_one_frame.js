@@ -1,15 +1,16 @@
 // Declare and initialize variables
-let gridSize = 20;
+let gridSize = 18;
 let circleRadius = 30;
-let colors = ["#e0fbfc", "#c2dfe3", "#9db4c0", "#5c6b73"];
+let colors = ["#769ced", "#97b8ff", "#b4ccff", "#c4d7ff"];
 
 // Declare variables for animation
 let angle = 0;
 let circleYPos = 0;
 
-// Set up canvas
 function setup() {
-  createCanvas(600, 600);
+  const canvasWidth = windowWidth * 0.9;
+  const canvasHeight = windowHeight * 0.9;
+  createCanvas(canvasWidth, canvasHeight);
   frameRate(24);
 }
 
@@ -24,15 +25,15 @@ function draw_one_frame(cur_frac) {
   // Set up ellipse properties
   ellipseMode(RADIUS);
   stroke(0);
-  strokeWeight(1);
+  strokeWeight(width / 80); // Set stroke weight relative to canvas width
 
   // Draw outer and inner circles
   noFill();
-  fill("#253237");
+  fill("#bfd7ea");
   ellipse(width / 2, height / 2, width / 2, height / 2);
   noFill();
   stroke("#7f5539");
-  strokeWeight(3);
+  strokeWeight(width * 0.005); // Set stroke weight relative to canvas width
   ellipse(width / 2, height / 2, width / 2, height / 2);
 
   // Loop through grid
@@ -56,29 +57,27 @@ function draw_one_frame(cur_frac) {
       rotate(atan2(height / 2 - y, width / 2 - x));
       ellipse(0, 0, circleRadius, circleRadius);
       pop();
-
+      
       // Draw circles on the sides
-      if (x === 120 || x === width - 120) {
+      if (x === width * 0.2 || x === width * 0.8) {
         noStroke();
         fill(0, 0, 255);
-        circle(x, circleYPos, 10);
+        circle(x, circleYPos, width / 100); // Set circle radius relative to canvas width
       }
     }
   }
 
   // Draw a rectangle and lines
   noFill();
-  stroke("#253237");
-  strokeWeight(40);
+  stroke("#c4d7ff");
+  strokeWeight(width / 20); // Set stroke weight relative to canvas width
   rect(0, 0, width, height);
-  line(120, 0, 120, height);
-  line(width - 120, 0, width - 120, height);
+  line(width * 0.2, 0, width * 0.2, height);
+  line(width * 0.8, 0, width * 0.8, height);
 
   // Animate circle Y position
   circleYPos = map(sin(frameCount / 24 * PI), -1, 1, 0, height);
 }
-
-
 
 
 
